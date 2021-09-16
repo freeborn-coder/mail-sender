@@ -1,8 +1,8 @@
 <?php
 require('vendor/autoload.php');
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
+@$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+@$dotenv->load();
 
 if(isset($_POST) && !empty($_POST)){
 
@@ -28,11 +28,12 @@ if(isset($_POST) && !empty($_POST)){
     
     $ch = curl_init('https://api.sendgrid.com/v3/mail/send');
 
+    $sendgrid_key = $_ENV['SENDGRID_API_KEY'] ?? getenv('SENDGRID_API_KEY');
     curl_setopt_array($ch,[
         CURLOPT_POST => true,
         CURLOPT_HTTPHEADER => [
             'Content-Type: application/json',
-            'Authorization: Bearer '.$_ENV['SENDGRID_API_KEY']
+            'Authorization: Bearer '.$sendgrid_key
         ],
         CURLOPT_POSTFIELDS => json_encode($data),
         CURLOPT_RETURNTRANSFER => true
@@ -42,7 +43,7 @@ if(isset($_POST) && !empty($_POST)){
     $res = json_decode($res);
 
     
-    if($res->errors){
+    if($res->errors ?? null){
         header("HTTP/1.1 400 Bad Request");
         $res_arr = [
             'status'=>'error',
