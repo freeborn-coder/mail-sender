@@ -1,0 +1,13 @@
+{
+    "name": "ganani/mail-sender",
+    "description": "Email handler for my portfolio contact form",
+    "authors": [
+        {
+            "name": "freeborn-coder",
+            "email": "freebornganani@gmail.com"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.3"
+    }
+}
