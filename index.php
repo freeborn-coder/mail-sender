@@ -1,8 +1,8 @@
 <?php
 require('vendor/autoload.php');
 
-@$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-@$dotenv->load();
+$dotenv = Dotenv\Dotenv::createUnsafeImmutable(__DIR__);
+$dotenv->safeload();
 
 if(isset($_POST) && !empty($_POST)){
 
@@ -28,7 +28,8 @@ if(isset($_POST) && !empty($_POST)){
     
     $ch = curl_init('https://api.sendgrid.com/v3/mail/send');
 
-    $sendgrid_key = $_ENV['SENDGRID_API_KEY'] ?? getenv('SENDGRID_API_KEY');
+    $sendgrid_key = getenv('SENDGRID_API_KEY');
+    
     curl_setopt_array($ch,[
         CURLOPT_POST => true,
         CURLOPT_HTTPHEADER => [
@@ -62,4 +63,6 @@ if(isset($_POST) && !empty($_POST)){
 
     curl_close($ch);
 
+}else{
+    echo 'Use the Post Endpoint to Send Email :)';
 }
