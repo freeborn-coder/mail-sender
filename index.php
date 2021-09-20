@@ -4,7 +4,20 @@ require('vendor/autoload.php');
 $dotenv = Dotenv\Dotenv::createUnsafeImmutable(__DIR__);
 $dotenv->safeload();
 
-header("Access-Control-Allow-Origin: freeborniwarri.netlfy.app");
+
+$origin = $_SERVER['HTTP_ORIGIN'];
+$allowed_domains = [
+    'http://freeborniwarri.netlify.app',
+    'https://freeborniwarri.netlify.app',
+    'http://freeborniwarri.netlify.app',
+    'http://localhost:8080'
+];
+
+if (in_array($origin, $allowed_domains)) {
+    header('Access-Control-Allow-Origin: ' . $origin);
+}
+
+header("Access-Control-Allow-Origin: https://freeborniwarri.netlfy.app");
 if(isset($_POST) && !empty($_POST)){
 
     $fullname = $_POST['fullname'];
