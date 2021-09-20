@@ -4,6 +4,7 @@ require('vendor/autoload.php');
 $dotenv = Dotenv\Dotenv::createUnsafeImmutable(__DIR__);
 $dotenv->safeload();
 
+header("Access-Control-Allow-Origin: freeborniwarri.netlfy.app");
 if(isset($_POST) && !empty($_POST)){
 
     $fullname = $_POST['fullname'];
