@@ -8,6 +8,7 @@ $dotenv->safeload();
 $origin = $_SERVER['HTTP_ORIGIN'];
 $allowed_domains = [
     'https://freeborniwarri.netlify.app/contact',
+    'http://freeborniwarri.netlify.app',
     'http://localhost:8080/contact'
 ];
 
